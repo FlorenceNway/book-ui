@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import CustomLayout from '../../components/customLayout/CustomLayout';
+import Paper from '../../components/paper/Paper';
 import { getAllBooks } from '../../service/book/bookAction';
 
 const Books = () => {
@@ -9,7 +11,11 @@ const Books = () => {
     dispatch(getAllBooks());
   });
 
-  return <div>Books</div>;
+  return (
+    <CustomLayout>
+      <Paper>Hello</Paper>
+    </CustomLayout>
+  );
 };
 
 export default Books;

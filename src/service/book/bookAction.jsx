@@ -8,7 +8,7 @@ import {
 
 export const createBook = (data, onSussess) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:5001/api/books', data);
+    await axios.post('http://localhost:5001/api/books', data);
 
     dispatch({
       type: CREATE_BOOK,

@@ -1,5 +1,5 @@
-import { CREATE_BOOK } from './bookActionTypes';
-import { GET_ALL_BOOKS } from './bookActionTypes';
+import _ from 'lodash';
+import { CREATE_BOOK, GET_ALL_BOOKS } from './bookActionTypes';
 
 const initialValues = {
   data: {},
@@ -12,7 +12,7 @@ export default function (state = initialValues, action) {
     case GET_ALL_BOOKS:
       return {
         ...state,
-        data: action.payload,
+        data: _.keyBy(action.payload.data, '_id'),
       };
     default:
       return state;

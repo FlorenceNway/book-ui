@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, usePrevious } from 'react';
 import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 import { Modal, Form, Input, notification } from 'antd';
@@ -11,12 +11,13 @@ const BookUpdateModal = ({ isModalVisible, handleCancel, initialValue }) => {
   const [pages, setPages] = useState();
   const [description, setDescription] = useState();
   const dispatch = useDispatch();
+  const prevState = usePrevious(initialValue);
 
   useEffect(() => {
-    setName(initialValue?.name);
-    setPages(initialValue?.pages);
-    setDescription(initialValue?.description);
-  }, []);
+    setName(prevState?.name);
+    setPages(prevState?.pages);
+    setDescription(prevState?.description);
+  }, [prevState]);
 
   const openNotification = () => {
     notification.open({
@@ -45,7 +46,7 @@ const BookUpdateModal = ({ isModalVisible, handleCancel, initialValue }) => {
 
   return (
     <Modal
-      title="New Book"
+      title="Edit Book"
       visible={isModalVisible}
       onOk={handleOk} // when server received data
       onCancel={handleCancel}

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import { Table, Space, Button, notification } from 'antd';
+import { Table, Space, notification } from 'antd';
 import { deleteBook, getAllBooks } from '../../../service/book/bookAction';
-import BookUpdateModal from './BookUpdateModal';
 
 const BookTable = () => {
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
-  const [initialValue, setInitialValue] = useState(null);
   const { Column } = Table;
   const books = useSelector((state) => state.bookReducer.data);
+  const history = useHistory();
   const dispatch = useDispatch();
   const data = _.map(books, (book) => {
     return {
@@ -46,8 +45,7 @@ const BookTable = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setOpenUpdateModal(true);
-                    setInitialValue(record);
+                    history.push(`/edit/${record.key}`);
                   }}
                 >
                   Edit
@@ -70,11 +68,6 @@ const BookTable = () => {
           }}
         />
       </Table>
-      <BookUpdateModal
-        isModalVisible={openUpdateModal}
-        handleCancel={() => setOpenUpdateModal(false)}
-        initialValue={initialValue}
-      />
     </>
   );
 };

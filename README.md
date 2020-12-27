@@ -2,13 +2,11 @@
 
 ### Tech Stack
 
-- built by NodeJS
-- store data in mongoDB
-- frameworks used by Express and Mongoose
+- ReactRedux
 
 ### Functinality
 
-Storage data in database
-
-- registered users
-- book data added from UI
+- able to add new book
+- able to register new user
+- login available for existing user
+- accessible books list after login

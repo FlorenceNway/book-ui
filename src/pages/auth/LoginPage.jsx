@@ -1,14 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Card } from 'antd';
+import { loginUser } from '../../service/auth/authAction';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const onFormSubmit = () => {
+    const data = { email, password };
+    dispatch(
+      loginUser(data, () => {
+        history.push('/books');
+      })
+    );
+  };
   return (
     <div style={{ marginTop: 200 }}>
       <Row>
         <Col span={12} offset={6}>
           <Card>
-            <Form name="basic">
+            <Form name="basic" onFinish={onFormSubmit}>
               <Form.Item
                 label="Email"
                 name="email"
@@ -19,7 +35,7 @@ const LoginPage = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input onChange={(e) => setEmail(e.target.value)} />
               </Form.Item>
 
               <Form.Item
@@ -32,7 +48,7 @@ const LoginPage = () => {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input.Password onChange={(e) => setPassword(e.target.value)} />
               </Form.Item>
 
               <Form.Item>

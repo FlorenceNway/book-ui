@@ -6,7 +6,7 @@ import {
   UPDATE_BOOK,
 } from './bookActionTypes';
 
-export const createBook = (data, onSussess) => async (dispatch) => {
+export const createBook = (data, onSuccess) => async (dispatch) => {
   try {
     await axios.post('http://localhost:5001/api/books', data);
 
@@ -14,7 +14,7 @@ export const createBook = (data, onSussess) => async (dispatch) => {
       type: CREATE_BOOK,
     });
     if (typeof onSussess === 'function') {
-      onSussess();
+      onSuccess();
     }
   } catch (error) {
     console.log(error);
@@ -22,8 +22,13 @@ export const createBook = (data, onSussess) => async (dispatch) => {
 };
 
 export const getAllBooks = () => async (dispatch) => {
+  const token = localStorage.getItem('TOKEN');
   try {
-    const response = await axios.get('http://localhost:5001/api/books');
+    const response = await axios.get('http://localhost:5001/api/books', {
+      headers: {
+        'auth-token': token,
+      },
+    });
 
     dispatch({
       type: GET_ALL_BOOKS,

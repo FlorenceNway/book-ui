@@ -6,14 +6,15 @@ import RegisterPage from '../pages/auth/RegisterPage';
 import Books from '../pages/book/Books';
 import BookUpdate from '../pages/book/BookUpdate';
 import store from '../store/store';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/edit/:id" component={BookUpdate} />
-          <Route path="/books" component={Books} />
+          <PrivateRoute path="/edit/:id" render={BookUpdate} />
+          <PrivateRoute path="/books" render={Books} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/" component={LoginPage} />
         </Switch>

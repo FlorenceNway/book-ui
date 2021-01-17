@@ -1,8 +1,8 @@
-import _ from 'lodash';
 import { LOGIN } from './authActionTypes';
 
 const initialValues = {
-  data: { isAuthenticated: false },
+  isAuthenticated: !!localStorage.getItem('TOKEN'),
+  // isAuthenticated: localStorage.getItem('TOKEN') ? true : false,
 };
 
 export default function (state = initialValues, action) {
@@ -10,7 +10,8 @@ export default function (state = initialValues, action) {
     case LOGIN:
       localStorage.setItem('TOKEN', action.payload);
       // store in localstorage when we get token after login
-      return { isAuthenticated: action.payload ? true : false };
+      return { isAuthenticated: !!action.payload };
+    // {isAuthenticated: action.payload? true : false}
     default:
       return state;
   }

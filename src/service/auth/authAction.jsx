@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-import { REGISTER, LOGIN } from './authActionTypes';
+import { REGISTER, LOGIN, LOGOUT } from './authActionTypes';
 
 export const registerUser = (data, onSuccess) => async (dispatch) => {
   try {
@@ -33,5 +33,15 @@ export const loginUser = (data, onSuccess) => async (dispatch) => {
     }
   } catch (error) {
     console.log(error.response); // error.response.data
+  }
+};
+
+export const logout = (onSuccess) => async (dispatch) => {
+  localStorage.removeItem('TOKEN');
+  dispatch({
+    type: LOGOUT,
+  });
+  if (typeof onSuccess === 'function') {
+    onSuccess();
   }
 };
